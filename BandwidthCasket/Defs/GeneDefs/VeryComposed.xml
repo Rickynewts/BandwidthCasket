@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+     <defName>VeryComposed</defName>
+    <label>极度镇静</label>
+    <labelShortAdj>镇静</labelShortAdj>
+    <description>这种基因的携带者在何时何地都能保持冷静。不会与他人打斗，甚至不会精神崩溃，作为奴隶时，他们也不会反抗。</description>
+    <customEffectDescriptions>
+      <li>永不叛乱</li>
+      <li>永不精神崩溃</li>
+    </customEffectDescriptions>
+    <iconPath>UI/Gene/Gene_VeryComposed</iconPath>
+    <displayCategory>Violence</displayCategory>
+    <displayOrderInCategory>200</displayOrderInCategory>
+    <socialFightChanceFactor>0</socialFightChanceFactor>
+    <prisonBreakMTBFactor>-1</prisonBreakMTBFactor> <!--永不越狱-->
+     <!--复杂度-->
+    <biostatCpx>1</biostatCpx>
+     <!--代谢率-->
+    <biostatMet>-3</biostatMet>
+    <!--生成权重-->
+    <selectionWeight>1.0</selectionWeight>
+  </GeneDef>
+</Defs>

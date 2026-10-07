@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="BuildingBase">
+    <defName>BandwidthCasket</defName>
+    <label>带宽仓</label>
+    <description>带宽仓是一种消耗活体组件的带宽节点，能为机械师提供+7的带宽</description>
+
+    <!--自定义C#类-->
+    <thingClass>BandwidthCasket.Building_BandwidthCasket</thingClass>
+
+    <!--容器内部的Pawn是否可被玩家选中-->
+    <containedPawnsSelectable>true</containedPawnsSelectable>
+
+    <!--Tick 更新频率-->
+    <tickerType>Normal</tickerType>
+
+    <!--RealtimeOnly 表示每帧实时绘制；如需阴影/网格刷新请用 MapMeshAndRealTime-->
+    <drawerType>MapMeshAndRealTime</drawerType>
+
+    <!--绘制高度层-->
+    <altitudeLayer>Building</altitudeLayer>
+
+    <!--通行性-->
+    <passability>PassThroughOnly</passability>
+
+    <!--格子内的填充比例-->
+    <fillPercent>0.5</fillPercent>
+
+    <!--交互格-->
+    <hasInteractionCell>true</hasInteractionCell>
+    <!--交互格偏移-->
+    <interactionCellOffset>(1,0,2)</interactionCellOffset>
+
+    <!--默认放置朝向-->
+    <defaultPlacingRot>South</defaultPlacingRot>
+
+    <!--是否投射边缘阴影-->
+    <castEdgeShadows>true</castEdgeShadows>
+    <!--挡风-->
+    <blockWind>true</blockWind>
+    <!--寻路成本-->
+    <pathCost>42</pathCost>
+    <!--可否旋转-->
+    <rotatable>true</rotatable>
+    <!--是否允许与区域重叠-->
+    <canOverlapZones>false</canOverlapZones>
+
+    <!--图形-->
+    <graphicData>
+      <texPath>Things/Building/BandwidthCasket/BandwidthCasket</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(2.5, 2.5)</drawSize>
+      <shadowData>
+        <volume>(2.0, 0.63, 2.13)</volume>
+        <offset>(0, 0, 0)</offset>
+      </shadowData>
+    </graphicData>
+    <uiIconPath>Things/Building/BandwidthCasket/BandwidthCasket_south</uiIconPath>
+    <uiIconScale>1.25</uiIconScale>
+
+    <!--大小-->
+    <size>(2, 2)</size>
+
+    <statBases>
+      <MaxHitPoints>350</MaxHitPoints>
+      <WorkToBuild>15000</WorkToBuild>
+      <Mass>60</Mass>
+      <Flammability>0.5</Flammability>
+    </statBases>
+
+    <!--建造成本-->
+    <costList>
+      <Steel>250</Steel>
+      <Plasteel>50</Plasteel>
+      <ComponentIndustrial>8</ComponentIndustrial>
+    </costList>
+
+    <!--建筑行为-->
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <buildingTags>
+        <li>Biotech</li>
+      </buildingTags>
+      <workTableRoomRole>Laboratory</workTableRoomRole>
+    </building>
+
+    <!--建造等级-->
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+
+    <!--分类和排序-->
+    <designationCategory>Biotech</designationCategory>
+    <uiOrder>2430</uiOrder>
+
+    <!--研究前置-->
+    <researchPrerequisites>
+      <li>HighMechtech</li>
+    </researchPrerequisites>
+
+    <!--超链接-->
+    <descriptionHyperlinks>
+      <ThingDef>BandNode</ThingDef>
+    </descriptionHyperlinks>
+
+    <!--信息面板：查看仓内小人信息-->
+    <inspectorTabs>
+      <li>ITab_ContentsCasket</li>
+    </inspectorTabs>
+
+    <!--放置限制-->
+    <placeWorkers>
+      <li>PlaceWorker_PreventInteractionSpotOverlap</li>
+    </placeWorkers>
+
+    <!--地形要求-->
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+
+    <!--组件-->
+    <comps>
+      <!--电力：300W 运行功率；关电时 node 不工作-->
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>300</basePowerConsumption>
+      </li>
+      <!--可手动开关电源-->
+      <li Class="CompProperties_Flickable" />
+
+      <!--本 mod 核心：带宽节点协调组件-->
+      <li Class="BandwidthCasket.CompProperties_BandwidthCasketNode">
+        <hediff>BandwidthCasket_Hediff</hediff>
+        <retuneDays>3</retuneDays>
+        <tuneSeconds>5</tuneSeconds>
+        <tuningCompleteSound>BandNodeTuning_Complete</tuningCompleteSound>
+        <!--+7 带宽-->
+        <bandwidth>7</bandwidth>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

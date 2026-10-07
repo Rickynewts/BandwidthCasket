@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>BandwidthCasket_Booster</defName>
+    <label>带宽强化</label>
+    <labelShortAdj>强化</labelShortAdj>
+    <description>这种基因的携带者神经系统能与带宽仓进行更高效的耦合，作为活体组件时能提供更高的机械带宽。</description>
+    <customEffectDescriptions>
+      <li>进入带宽仓时提供 +12 带宽</li>
+    </customEffectDescriptions>
+    <iconPath>UI/Gene/Gene_BandwidthCasketBooster</iconPath>
+    <displayCategory>Mood</displayCategory>
+    <displayOrderInCategory>210</displayOrderInCategory>
+    <biostatCpx>1</biostatCpx>
+    <biostatMet>-1</biostatMet>
+    <selectionWeight>0.5</selectionWeight>
+  </GeneDef>
+</Defs>

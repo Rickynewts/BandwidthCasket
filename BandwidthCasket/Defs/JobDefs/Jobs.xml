@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <JobDef>
+    <defName>BandwidthCasket_Enter</defName>
+    <driverClass>BandwidthCasket.JobDriver_EnterBandwidthCasket</driverClass>
+    <reportString>entering bandwidth casket.</reportString>
+  </JobDef>
+
+</Defs>

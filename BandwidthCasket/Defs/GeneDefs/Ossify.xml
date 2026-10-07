@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+     <defName>Ossify</defName>
+    <label>思维僵化</label>
+    <description>这种基因的携带者对经验的开放性较低，他们很难接受新观念。</description>
+    <iconPath>UI/Gene/Gene_Ossify</iconPath>
+    <displayCategory>Mood</displayCategory>
+    <displayOrderInCategory>200</displayOrderInCategory>
+     <statFactors>
+      <CertaintyLossFactor>0.15</CertaintyLossFactor>
+    </statFactors>
+     <!--复杂度-->
+    <biostatCpx>1</biostatCpx>
+     <!--代谢率-->
+    <biostatMet>0</biostatMet>
+    <!--生成权重-->
+    <selectionWeight>1.0</selectionWeight>
+  </GeneDef>
+</Defs>

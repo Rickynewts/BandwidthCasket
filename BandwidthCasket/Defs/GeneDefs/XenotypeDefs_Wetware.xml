@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <XenotypeDef>
+    <defName>Wetware</defName>
+    <label>湿件种</label>
+    <description>湿件种是作为生物组件培育的异种人，他们在工厂被大量生产，当然，这项技术在大部分世界都是禁止的</description>
+    <descriptionShort>湿件种是作为生物组件培育的异种人，他们在工厂被大量生产</descriptionShort>
+    <!--图标-->
+    <iconPath>UI/Xenotypes/Wetware</iconPath>
+    <!--排序-->
+    <displayPriority>-500</displayPriority>
+    <!--禁止遗传 -->
+  <inheritable>false</inheritable>
+
+  <!--禁用"无派系随机生成"（游荡者、空投者等）-->
+  <factionlessGenerationWeight>0</factionlessGenerationWeight>
+
+  <!--战斗能力系数低 → 不会被系统选为袭击者-->
+  <combatPowerFactor>0.5</combatPowerFactor>
+    
+    <genes>
+      <li>BandwidthCasket_Booster</li>   <!--带宽强化-->
+      <li>NeverRecreation</li>          <!--无需娱乐-->
+      <li>Ossify</li>                   <!--思维僵化-->
+      <li>RemovePassion</li>            <!--缺乏热情-->
+      <li>VeryComposed</li>             <!--极度镇静-->
+
+      <!--原版基因 -->
+      <li>MeleeDamage_Weak</li>         <!-- 不擅近战 -->
+      <li>LowSleep</li>                 <!-- 不易疲倦 -->
+      <li>Delicate</li>                 <!-- 脆弱 -->
+      <li>Pain_Extra</li>               <!-- 懦弱 -->
+      <li>Hair_BaldOnly</li>            <!-- 无发 -->
+      <li>Beard_NoBeardOnly</li>        <!-- 无胡须 -->
+      <li>Ears_Pointed</li>             <!-- 尖耳 -->
+      <li>Body_Thin</li>                <!-- 纤细体型 -->
+      <li>Skin_LightGray</li>           <!-- 浅灰皮肤 -->
+      <li>ElongatedFingers</li>         <!-- 细长手指 -->
+      <li>AptitudeTerrible_Melee</li>          <!-- 格斗无能 -->
+      <li>AptitudePoor_Artistic</li>           <!-- 艺术无能 -->
+      <li>AptitudeTerrible_Social</li>         <!-- 社交无能 -->
+      <li>AptitudeRemarkable_Intellectual</li> <!-- 智识超群 -->
+    </genes>
+  </XenotypeDef>
+
+</Defs>

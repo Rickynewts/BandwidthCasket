@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ScenarioDef ParentName="ScenarioBase">
+    <defName>Wetware</defName>
+    <label>湿件机械师</label>
+    <description>你早就明白，真正的力量来自"湿件"与"硬件"的结合。你带着三名被改造过的同伴，以及一小队机械仆从，逃到了这枚边缘世界。</description>
+    <scenario>
+      <summary>一名机械师、三名湿件种，以及一小队仆从机械。</summary>
+      <parts>
+
+        <!-- 开局文本 -->
+        <li Class="ScenPart_GameStartDialog">
+          <def>GameStartDialog</def>
+          <text>你早就明白，真正的力量来自"湿件"与"硬件"的结合。你带着三名被改造过的同伴，以及一小队机械仆从，逃到了这枚边缘世界。</text>
+          <closeSound>GameStartSting</closeSound>
+        </li>
+
+        <!-- 起始角色：1 名 Baseliner 机械师 + 3 名 Wetware 异种 -->
+        <li Class="ScenPart_ConfigPage_ConfigureStartingPawns_Xenotypes">
+          <def>ConfigurePawnsXenotypes</def>
+          <pawnChoiceCount>8</pawnChoiceCount>
+          <customSummary>1 名智人种机械师与 3 名湿件异种。</customSummary>
+
+          <!-- 强制 Baseliner 使用 Mechanitor 的 pawnKind（保证其有协调机械的能力） -->
+          <overrideKinds>
+            <li>
+              <xenotype>Baseliner</xenotype>
+              <pawnKind>Mechanitor</pawnKind>
+            </li>
+          </overrideKinds>
+
+          <xenotypeCounts>
+            <li>
+              <xenotype>Baseliner</xenotype>
+              <count>1</count>
+              <requiredAtStart>true</requiredAtStart>
+            </li>
+            <li>
+              <xenotype>Wetware</xenotype>
+              <count>3</count>
+              <requiredAtStart>true</requiredAtStart>
+            </li>
+          </xenotypeCounts>
+        </li>
+
+        <!-- 空投落地 -->
+        <li Class="ScenPart_PlayerPawnsArriveMethod">
+          <def>PlayerPawnsArriveMethod</def>
+          <visible>false</visible>
+          <method>DropPods</method>
+        </li>
+
+        <!-- 起始研究 -->
+        <li Class="ScenPart_StartingResearch">
+          <def>StartingResearch</def>
+          <project>MicroelectronicsBasics</project>
+        </li>
+        <li Class="ScenPart_StartingResearch">
+          <def>StartingResearch</def>
+          <project>BasicMechtech</project>
+        </li>
+        <li Class="ScenPart_StartingResearch">
+          <def>StartingResearch</def>
+          <project>Batteries</project>
+        </li>
+
+        <!-- 起始机械 -->
+        <li Class="ScenPart_StartingMech">
+          <def>StartingMech</def>
+          <mechKind>Mech_Lifter</mechKind>
+          <overseenByPlayerPawnChance>1</overseenByPlayerPawnChance>
+        </li>
+        <li Class="ScenPart_StartingMech">
+          <def>StartingMech</def>
+          <mechKind>Mech_Constructoid</mechKind>
+          <overseenByPlayerPawnChance>1</overseenByPlayerPawnChance>
+        </li>
+
+        <!-- 起始物资（数值参考原版机械师开局） -->
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Silver</thingDef>
+          <count>1000</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MealSurvivalPack</thingDef>
+          <count>40</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>MedicineIndustrial</thingDef>
+          <count>10</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>ComponentIndustrial</thingDef>
+          <count>55</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Steel</thingDef>
+          <count>900</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>Plasteel</thingDef>
+          <count>100</count>
+        </li>
+        <li Class="ScenPart_StartingThing_Defined">
+          <def>StartingThing_Defined</def>
+          <thingDef>SubcoreBasic</thingDef>
+          <count>5</count>
+        </li>
+
+        <!-- 禁用机械师剧本里默认禁用的地图元素 -->
+        <li Class="ScenPart_DisableMapGen">
+          <def>DisableExostriderRemains</def>
+        </li>
+
+      </parts>
+    </scenario>
+  </ScenarioDef>
+
+</Defs>

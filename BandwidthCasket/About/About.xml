@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>BandWidthCasket</name>
+  <author>Yushiren</author>
+  <packageId>Yushiren.BandWidthCasket</packageId>
+  <description><![CDATA[BandwidthCasket向原版游戏增加了活体生物计算机的元素，内容简介：
+<color=#597b6b>-增加了1种建筑物，用一种非人道的手段增加机械师的带宽，
+-1种异种人，他们似乎完全是为了这些设备而生，
+-5种相关基因，
+-1个开局剧本</color>
+推荐排序：
+↳Harmony
+↳Core
+↳Biotech
+↳BandwidthCasket
+]]></description>
+<modDependencies>
+    <li>
+      <packageId>Ludeon.RimWorld.Biotech</packageId>
+    </li>
+  </modDependencies>
+  <supportedVersions>
+   <li>1.6</li>
+  </supportedVersions>
+</ModMetaData>
