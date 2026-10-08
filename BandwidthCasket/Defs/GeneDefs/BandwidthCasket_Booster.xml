@@ -5,14 +5,19 @@
     <label>带宽强化</label>
     <labelShortAdj>强化</labelShortAdj>
     <description>这种基因的携带者神经系统能与带宽仓进行更高效的耦合，作为活体组件时能提供更高的机械带宽。</description>
+    <!--自定义说明文字-->
     <customEffectDescriptions>
-      <li>进入带宽仓时提供 +12 带宽</li>
+      <li>作为活体组件时能为带宽仓时提供+12带宽</li>
     </customEffectDescriptions>
+    <!--UI-->
     <iconPath>UI/Gene/Gene_BandwidthCasketBooster</iconPath>
     <displayCategory>Mood</displayCategory>
     <displayOrderInCategory>210</displayOrderInCategory>
+    <!--复杂度-->
     <biostatCpx>1</biostatCpx>
+    <!--代谢率-->
     <biostatMet>-1</biostatMet>
+    <!--生成权重-->
     <selectionWeight>0.5</selectionWeight>
   </GeneDef>
 </Defs>

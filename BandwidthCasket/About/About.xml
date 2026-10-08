@@ -3,22 +3,43 @@
   <name>BandWidthCasket</name>
   <author>Yushiren</author>
   <packageId>Yushiren.BandWidthCasket</packageId>
-  <description><![CDATA[BandwidthCasket向原版游戏增加了活体生物计算机的元素，内容简介：
+  <description><![CDATA[BandwidthCasket向原版游戏增加了活体生物计算机的元素
+▸内容一览：
 <color=#597b6b>-增加了1种建筑物，用一种非人道的手段增加机械师的带宽，
 -1种异种人，他们似乎完全是为了这些设备而生，
 -5种相关基因，
--1个开局剧本</color>
-推荐排序：
+-1个开局剧本；
+-一个背景故事</color>
+▸推荐排序：
 ↳Harmony
 ↳Core
 ↳Biotech
 ↳BandwidthCasket
+▸语言：简体中文
+▸反馈：https://github.com/Rickynewts/BandwidthCasket
 ]]></description>
+<!--前置-->
 <modDependencies>
     <li>
       <packageId>Ludeon.RimWorld.Biotech</packageId>
+      <displayName>RimWorld - Biotech</displayName>
+    </li>
+    <li>
+      <packageId>Ludeon.RimWorld.Ideology</packageId>
+      <displayName>RimWorld - Ideology</displayName>
+    </li>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
     </li>
   </modDependencies>
+  <!--排序-->
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Ludeon.RimWorld.Biotech</li>
+    <li>Ludeon.RimWorld.Ideology</li>
+  </loadAfter>
   <supportedVersions>
    <li>1.6</li>
   </supportedVersions>

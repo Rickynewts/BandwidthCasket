@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
-  <!-- 奴隶：让所有奴隶贩子带来的奴隶有几率是 Wetware -->
+  <!--生成补丁：让所有奴隶贩子带来的奴隶有几率是 Wetware -->
   <Operation Class="PatchOperationConditional">
+  <!--条件不成立时(不同版本里，Slave 可能已经有 xenotypeSet)-->
     <xpath>Defs/PawnKindDef[defName="Slave"]/xenotypeSet/xenotypeChances</xpath>
     <nomatch Class="PatchOperationAdd">
+    <!--角色类型-->
       <xpath>Defs/PawnKindDef[defName="Slave"]</xpath>
       <value>
         <xenotypeSet>
@@ -15,6 +17,7 @@
         </xenotypeSet>
       </value>
     </nomatch>
+    <!--条件成立时-->
     <match Class="PatchOperationAdd">
       <xpath>Defs/PawnKindDef[defName="Slave"]/xenotypeSet/xenotypeChances</xpath>
       <value>

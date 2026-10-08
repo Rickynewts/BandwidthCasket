@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <BackstoryDef>
+    <slot>Adulthood</slot>
+    <title>带宽仓芯片</title>
+    <defName>NeuralChip</defName>
+    <titleShort>芯片</titleShort>
+    <!--文本内容-->
+    <baseDesc>[PAWN_nameDef] 在成年后成为了带宽仓的芯片，度过漫长的余生</baseDesc>
+    <!--技能-->
+    <skillGains>
+      <Melee>-4</Melee>
+      <Mining>-4</Mining>
+      <Intellectual>3</Intellectual>
+      <Social>-5</Social>
+    </skillGains>
+    <!--禁用各种类型-->
+    <workDisables>
+      <li>None</li>
+    </workDisables>
+  </BackstoryDef>
+</Defs>

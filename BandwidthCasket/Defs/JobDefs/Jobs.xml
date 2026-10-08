@@ -4,7 +4,8 @@
   <JobDef>
     <defName>BandwidthCasket_Enter</defName>
     <driverClass>BandwidthCasket.JobDriver_EnterBandwidthCasket</driverClass>
-    <reportString>entering bandwidth casket.</reportString>
+    <!--执行Job文本描述-->
+    <reportString>正在进入带宽仓</reportString>
   </JobDef>
 
 </Defs>

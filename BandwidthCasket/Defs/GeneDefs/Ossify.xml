@@ -4,9 +4,11 @@
      <defName>Ossify</defName>
     <label>思维僵化</label>
     <description>这种基因的携带者对经验的开放性较低，他们很难接受新观念。</description>
+    <!--UI-->
     <iconPath>UI/Gene/Gene_Ossify</iconPath>
     <displayCategory>Mood</displayCategory>
     <displayOrderInCategory>200</displayOrderInCategory>
+    <!--添加乘法修正-->
      <statFactors>
       <CertaintyLossFactor>0.15</CertaintyLossFactor>
     </statFactors>

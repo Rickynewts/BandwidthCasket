@@ -5,18 +5,21 @@
     <label>无需娱乐</label>
     <labelShortAdj>无需娱乐</labelShortAdj>
     <description>这种基因的携带者无需娱乐，他们永远也不会感觉枯燥</description>
+    <!--自定义说明文字-->
     <customEffectDescriptions>
       <li>移除娱乐需求条</li>
     </customEffectDescriptions>
+    <!--UI-->
     <iconPath>UI/Gene/Gene_NeverRecreation</iconPath>
     <displayCategory>Mood</displayCategory>
     <displayOrderInCategory>200</displayOrderInCategory>
+    <!--禁用需求-->
     <disablesNeeds>
       <li>Joy</li>
     </disablesNeeds>
-     <!--复杂度-->
+    <!--复杂度-->
     <biostatCpx>1</biostatCpx>
-     <!--代谢率-->
+    <!--代谢率-->
     <biostatMet>-1</biostatMet>
     <!--生成权重-->
     <selectionWeight>1.0</selectionWeight>

@@ -12,14 +12,14 @@
     <!--禁止遗传 -->
   <inheritable>false</inheritable>
 
-  <!--禁用"无派系随机生成"（游荡者、空投者等）-->
+  <!--禁用"无派系随机生成"-->
   <factionlessGenerationWeight>0</factionlessGenerationWeight>
 
   <!--战斗能力系数低 → 不会被系统选为袭击者-->
   <combatPowerFactor>0.5</combatPowerFactor>
-    
+    <!--基因-->
     <genes>
-      <li>BandwidthCasket_Booster</li>   <!--带宽强化-->
+      <li>BandwidthCasket_Booster</li>  <!--带宽强化-->
       <li>NeverRecreation</li>          <!--无需娱乐-->
       <li>Ossify</li>                   <!--思维僵化-->
       <li>RemovePassion</li>            <!--缺乏热情-->

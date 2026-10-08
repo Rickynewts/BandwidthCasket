@@ -5,6 +5,7 @@
     <label>极度镇静</label>
     <labelShortAdj>镇静</labelShortAdj>
     <description>这种基因的携带者在何时何地都能保持冷静。不会与他人打斗，甚至不会精神崩溃，作为奴隶时，他们也不会反抗。</description>
+    <!--自定义说明文字(新增)-->
     <customEffectDescriptions>
       <li>永不叛乱</li>
       <li>永不精神崩溃</li>
@@ -12,8 +13,12 @@
     <iconPath>UI/Gene/Gene_VeryComposed</iconPath>
     <displayCategory>Violence</displayCategory>
     <displayOrderInCategory>200</displayOrderInCategory>
-    <socialFightChanceFactor>0</socialFightChanceFactor>
-    <prisonBreakMTBFactor>-1</prisonBreakMTBFactor> <!--永不越狱-->
+    <socialFightChanceFactor>0</socialFightChanceFactor><!--社交斗争概率-->
+    <prisonBreakMTBFactor>-1</prisonBreakMTBFactor> <!--越狱的平均间隔时间-->
+    <!--冲突基因-->
+    <exclusionTags>
+      <li>Aggression_DeadCalm</li>
+    </exclusionTags>
      <!--复杂度-->
     <biostatCpx>1</biostatCpx>
      <!--代谢率-->

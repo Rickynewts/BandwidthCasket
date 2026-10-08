@@ -3,7 +3,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>BandwidthCasket</defName>
     <label>带宽仓</label>
-    <description>带宽仓是一种消耗活体组件的带宽节点，能为机械师提供+7的带宽</description>
+    <description>带宽仓是一种消耗活体组件的带宽节点，通电时能为机械师提供+7的带宽</description>
 
     <!--自定义C#类-->
     <thingClass>BandwidthCasket.Building_BandwidthCasket</thingClass>

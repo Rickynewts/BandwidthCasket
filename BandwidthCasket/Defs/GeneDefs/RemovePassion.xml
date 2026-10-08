@@ -4,18 +4,19 @@
     <defName>RemovePassion</defName>
     <label>缺乏热情</label>
     <description>这种基因的携带者不会对事物发展出热情</description>
+    <!--自定义说明文字-->
     <customEffectDescriptions>
       <li>移除热情</li>
     </customEffectDescriptions>
-
     <!--自定义 C#类-->
     <geneClass>BandwidthCasket.Gene_RemoveAllPassions</geneClass>
+    <!--UI-->
     <iconPath>UI/Gene/Gene_RemovePassion</iconPath>
     <displayCategory>Mood</displayCategory>
     <displayOrderInCategory>200</displayOrderInCategory>
-     <!--复杂度-->
+    <!--复杂度-->
     <biostatCpx>1</biostatCpx>
-     <!--代谢率-->
+    <!--代谢率-->
     <biostatMet>3</biostatMet>
     <!--生成权重-->
     <selectionWeight>1.0</selectionWeight>

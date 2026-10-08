@@ -6,8 +6,11 @@
     <hediffClass>BandwidthCasket.Hediff_BandwidthCasket</hediffClass>
     <label>带宽仓（已协调）</label>
     <description>由带宽仓提供的额外机械带宽。</description>
+    <!--非负面状态-->
     <isBad>false</isBad>
+    <!--Hediff 被添加时，默认初始强度是 1-->
     <initialSeverity>1</initialSeverity>
+    <!--强度上限为1-->
     <maxSeverity>1</maxSeverity>
   </HediffDef>
 
