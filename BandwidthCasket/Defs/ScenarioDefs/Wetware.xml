@@ -3,7 +3,7 @@
 
   <ScenarioDef ParentName="ScenarioBase">
    <!-- 描述 -->
-    <defName>Wetware And Mechanitor</defName>
+    <defName>WetwareAndMechanitor</defName>
     <label>湿件机械师</label>
     <description>你早就明白，真正的力量来自"湿件"与"硬件"的结合。你带着三名被改造过的同伴，以及一小队机械仆从，逃到了这枚边缘世界。</description>
     <scenario>

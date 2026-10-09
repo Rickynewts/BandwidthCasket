@@ -26,7 +26,7 @@ namespace BandwidthCasket
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell);
 
             // 2) 原地等待 120 tick（约 2 秒），期间显示进度条
-            var wait = Toils_General.Wait(120);
+            var wait = Toils_General.Wait(120, TargetIndex.A);
             wait.FailOnCannotTouch(TargetIndex.A, PathEndMode.InteractionCell);
             wait.WithProgressBarToilDelay(TargetIndex.A);
             yield return wait;

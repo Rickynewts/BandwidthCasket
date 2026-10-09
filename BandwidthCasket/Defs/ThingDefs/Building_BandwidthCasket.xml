@@ -29,7 +29,7 @@
     <!--交互格-->
     <hasInteractionCell>true</hasInteractionCell>
     <!--交互格偏移-->
-    <interactionCellOffset>(1,0,2)</interactionCellOffset>
+    <interactionCellOffset>(0, 0, 2)</interactionCellOffset>
 
     <!--默认放置朝向-->
     <defaultPlacingRot>South</defaultPlacingRot>

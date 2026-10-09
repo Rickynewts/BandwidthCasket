@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <VeryComposed.label>极度镇静</VeryComposed.label>
+  <VeryComposed.labelShortAdj>镇静</VeryComposed.labelShortAdj>
+  <VeryComposed.description>这种基因的携带者在何时何地都能保持冷静。不会与他人打斗，甚至不会精神崩溃，作为奴隶时，他们也不会反抗。</VeryComposed.description>
+  <VeryComposed.customEffectDescriptions.0>永不叛乱</VeryComposed.customEffectDescriptions.0>
+  <VeryComposed.customEffectDescriptions.1>永不精神崩溃</VeryComposed.customEffectDescriptions.1>
+
+</LanguageData>

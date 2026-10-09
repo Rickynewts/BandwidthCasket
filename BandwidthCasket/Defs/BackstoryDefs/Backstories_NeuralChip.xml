@@ -14,9 +14,9 @@
       <Intellectual>3</Intellectual>
       <Social>-5</Social>
     </skillGains>
-    <!--必须非空，只是为了让 DefDatabase 检查通过；不会真的随机生成 -->
+    <!--必须非空，只是为了让 DefDatabase 检查通过；不会真的随机生成（有 C# 会用、游戏里根本不存在的类别名） -->
     <spawnCategories>
-      <li>Offworld</li>
+      <li>WetwareOnly</li>
     </spawnCategories>
     <!--禁用各种类型-->
     <workDisables>

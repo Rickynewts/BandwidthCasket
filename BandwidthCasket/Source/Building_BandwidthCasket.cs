@@ -42,6 +42,7 @@ namespace BandwidthCasket
         /// 根据建筑当前朝向 Rotation.AsInt 选择对应方向的偏移值。
         ///   AsInt: 0=North, 1=East, 2=South, 3=West
         /// </summary>
+     
         public Vector3 PawnDrawOffset
         {
             get
@@ -56,6 +57,7 @@ namespace BandwidthCasket
                 return Vector3.zero;
             }
         }
+    
 
         // ─────────────── IThingHolderWithDrawnPawn 的三个成员 ───────────────
         // 这三个属性告诉 RimWorld "仓内 pawn 应当以什么姿态、朝向、高度被绘制"。
