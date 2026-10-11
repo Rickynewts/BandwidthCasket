@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <NeverRecreation.label>No Recreation Need</NeverRecreation.label>
+  <NeverRecreation.labelShortAdj>Recreationless</NeverRecreation.labelShortAdj>
+  <NeverRecreation.description>Carriers of this gene do not need recreation. They never get bored.</NeverRecreation.description>
+  <NeverRecreation.customEffectDescriptions.0>Removes the recreation need bar</NeverRecreation.customEffectDescriptions.0>
+
+</LanguageData>

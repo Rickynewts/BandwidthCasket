@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <NeverRecreation.label>无需娱乐</NeverRecreation.label>
+  <NeverRecreation.labelShortAdj>无需娱乐</NeverRecreation.labelShortAdj>
+  <NeverRecreation.description>这种基因的携带者无需娱乐，他们永远也不会感觉枯燥</NeverRecreation.description>
+  <NeverRecreation.customEffectDescriptions.0>移除娱乐需求条</NeverRecreation.customEffectDescriptions.0>
+
+</LanguageData>

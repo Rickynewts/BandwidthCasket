@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Custom keys for this mod -->
+  <RSC_BandwidthCasket_Unavailable>Bandwidth casket unavailable</RSC_BandwidthCasket_Unavailable>
+  <RSC_BandwidthCasket_Blocked>Path blocked</RSC_BandwidthCasket_Blocked>
+  <RSC_BandwidthCasket_InsertPersonDesc>Place a person into the bandwidth casket.</RSC_BandwidthCasket_InsertPersonDesc>
+  <RSC_BandwidthCasket_AlreadySelected>Already reserved</RSC_BandwidthCasket_AlreadySelected>
+  <RSC_BandwidthCasket_NotAllowed>This person cannot be placed in the bandwidth casket</RSC_BandwidthCasket_NotAllowed>
+  <RSC_BandwidthCasket_NeedsCarrier>This person cannot enter on their own</RSC_BandwidthCasket_NeedsCarrier>
+  <CommandCancelLoad>Cancel load</CommandCancelLoad>
+  <CommandCancelLoadDesc>Cancel loading the person.</CommandCancelLoadDesc>
+  <InsertPerson>Insert person</InsertPerson>
+  <NoPower>No power</NoPower>
+  <NoExtractablePawns>No pawns available to insert</NoExtractablePawns>
+  <CannotEnterBuilding>Cannot enter {0}</CannotEnterBuilding>
+  <NoPath>No path</NoPath>
+  <EnterBuilding>Enter {0}</EnterBuilding>
+  <WaitingForPawn>Waiting for {PAWN}</WaitingForPawn>
+
+</LanguageData>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <VeryComposed.label>Very Composed</VeryComposed.label>
+  <VeryComposed.labelShortAdj>Composed</VeryComposed.labelShortAdj>
+  <VeryComposed.description>Carriers of this gene remain calm anywhere, anytime. They will not fight others or even suffer mental breaks. As slaves, they will not rebel.</VeryComposed.description>
+  <VeryComposed.customEffectDescriptions.0>Never rebels</VeryComposed.customEffectDescriptions.0>
+  <VeryComposed.customEffectDescriptions.1>Never suffers mental breaks</VeryComposed.customEffectDescriptions.1>
+
+</LanguageData>
