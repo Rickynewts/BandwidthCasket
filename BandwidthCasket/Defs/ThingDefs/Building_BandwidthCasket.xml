@@ -46,17 +46,16 @@
     <canOverlapZones>false</canOverlapZones>
 
     <!--图形-->
-    <graphicData>
-      <texPath>Things/Building/BandwidthCasket/BandwidthCasket</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <drawSize>(2.5, 2.5)</drawSize>
-      <shadowData>
-        <volume>(2.0, 0.63, 2.13)</volume>
-        <offset>(0, 0, 0)</offset>
-      </shadowData>
-    </graphicData>
-    <uiIconPath>Things/Building/BandwidthCasket/BandwidthCasket_south</uiIconPath>
-    <uiIconScale>1.25</uiIconScale>
+<graphicData>
+  <texPath>Things/Building/BandwidthCasket/BandwidthCasket</texPath>
+  <graphicClass>Graphic_Multi</graphicClass>
+  <drawSize>(2.5, 2.5)</drawSize>
+  <drawOffset>(0.2, 0, 0.2)</drawOffset>   <!-- 新增：整体往左下挪 -->
+  <shadowData>
+    <volume>(2.0, 0.63, 2.13)</volume>
+    <offset>(0.2, 0, 0.2)</offset>         <!--阴影跟着挪，保持一致 -->
+  </shadowData>
+</graphicData>
 
     <!--大小-->
     <size>(2, 2)</size>

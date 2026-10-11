@@ -8,41 +8,20 @@ using Verse.Sound;
 
 namespace BandwidthCasket
 {
-    /// <summary>
-    /// 带宽仓建筑本体。
-    /// 继承 Building_Casket（自带容器、休眠逻辑、弹出按钮）。
-    /// 额外实现：
-    ///   - ISuspendableThingHolder：容器内的东西应当被挂起（冻结需求）。
-    ///   - IThingHolderWithDrawnPawn：容器内的 pawn自己来绘制（用于躺在建筑上）。
-    /// </summary>
     public class Building_BandwidthCasket : Building_Casket,
                                              ISuspendableThingHolder,
                                              IThingHolderWithDrawnPawn
     {
-        // ─────────────── 接口实现：容器内容挂起 ───────────────
-        // 显式实现（带接口名前缀）是必须的：只有派生类重新声明接口并显式实现，
-        // 才能让 "ParentHolder is ISuspendableThingHolder { IsContentsSuspended: true }" 这个
-        // 模式匹配命中我们这份实现，从而让 RimWorld 判定仓内 pawn 是 Suspended。
-        // 效果：仓内 pawn 的需求、年龄、心情等 tick 全部跳过。
         bool ISuspendableThingHolder.IsContentsSuspended => true;
 
-        // ─────────────── 4 个方向的绘制偏移 ───────────────
-        // 美术贴图在四个方向上的"器皿中心"并不居中，因此每个方向需要独立配置。
-        // 单位：世界坐标格（1.0 = 一格）。
-        // 想往右(x+)/左(x-)、上(z+)/下(z-) 调。
-        // 注意：下面这几个静态字段目前没有直接用到（被 getter 里的 switch 覆盖），
-        //       保留它们只是为了方便你对照四个方向的"基准值"。
-        private static readonly Vector3 PawnOffsetNorth = new Vector3(0.75f, 0f, -0.35f);
-        private static readonly Vector3 PawnOffsetEast = new Vector3(0.35f, 0f, 0.75f);
-        private static readonly Vector3 PawnOffsetSouth = new Vector3(-0.75f, 0f, 0.35f); // South 基准值
-        private static readonly Vector3 PawnOffsetWest = new Vector3(-0.35f, 0f, -0.75f);
+        // ─────────────── 状态字段 ───────────────
+        /// <summary>被"预定"要送进来的 pawn；由 Gizmo 设置，由 WorkGiver 或右键触发搬运。</summary>
+        private Pawn selectedPawn;
 
-        /// <summary>
-        /// pawn 相对建筑中心的绘制偏移（世界坐标）。
-        /// 根据建筑当前朝向 Rotation.AsInt 选择对应方向的偏移值。
-        ///   AsInt: 0=North, 1=East, 2=South, 3=West
-        /// </summary>
-     
+        public Pawn SelectedPawn => selectedPawn;
+        public bool WaitingForPawn => selectedPawn != null && !HasPawn;
+
+        // ─────────────── 4 个方向的绘制偏移 ───────────────
         public Vector3 PawnDrawOffset
         {
             get
@@ -51,35 +30,24 @@ namespace BandwidthCasket
                 {
                     case 0: return new Vector3(-0.72f, 0f, 0.00f);   // North
                     case 1: return new Vector3(-0.10f, 0f, 0.45f);   // East
-                    case 2: return new Vector3(-0.70f, 0f, 0.05f);   // South（你调好的值）
-                    case 3: return new Vector3(0.00f, 0f, -0.65f);  // West
+                    case 2: return new Vector3(-0.70f, 0f, 0.05f);   // South
+                    case 3: return new Vector3(0.00f, 0f, -0.65f);   // West
                 }
                 return Vector3.zero;
             }
         }
-    
 
-        // ─────────────── IThingHolderWithDrawnPawn 的三个成员 ───────────────
-        // 这三个属性告诉 RimWorld "仓内 pawn 应当以什么姿态、朝向、高度被绘制"。
-
-        /// <summary>pawn 绘制时的 y 高度（世界坐标），比建筑本身高 1/26 格。</summary>
+        // ─────────────── IThingHolderWithDrawnPawn ───────────────
         public float HeldPawnDrawPos_Y => DrawPos.y + 1f / 26f;
-
-        /// <summary>pawn 身体朝向（弧度）。Rotation.AsAngle 让朝向跟随建筑，+180f 让头朝向"建筑背面"。</summary>
         public float HeldPawnBodyAngle => Rotation.AsAngle + 180f;
-
-        /// <summary>pawn 姿势：躺在地上面朝上。</summary>
         public PawnPosture HeldPawnPosture => PawnPosture.LayingOnGroundFaceUp;
 
-        // ─────────────── "选择小人"Gizmo 用的图标 ───────────────
-        // 贴图路径
+        // ─────────────── 图标 ───────────────
         private const string InsertPawnIconPath = "UI/Gizmos/InsertBandwidthCasket";
 
-        // 缓存已加载的贴图
-        [Unsaved(false)]
-        private static Texture2D cachedInsertPawnTex;
+        [Unsaved(false)] private static Texture2D cachedInsertPawnTex;
+        [Unsaved(false)] private static Texture2D cachedCancelTex;
 
-        /// <summary>懒加载"放入小人"按钮图标。</summary>
         private static Texture2D InsertPawnTex
         {
             get
@@ -90,21 +58,29 @@ namespace BandwidthCasket
             }
         }
 
+        private static Texture2D CancelTex
+        {
+            get
+            {
+                if (cachedCancelTex == null)
+                    cachedCancelTex = ContentFinder<Texture2D>.Get("UI/Designators/Cancel", true);
+                return cachedCancelTex;
+            }
+        }
+
         // ─────────────── 常用属性 ───────────────
-
-        /// <summary>容器内的 Pawn（没有则为 null）。</summary>
         public Pawn ContainedPawn => ContainedThing as Pawn;
-
-        /// <summary>是否真的有一个活着的 pawn 在仓内。</summary>
         public bool HasPawn => ContainedPawn != null && !ContainedPawn.Dead;
-
-        /// <summary>获取本建筑上的带宽节点组件。</summary>
         public CompBandwidthCasketNode BandNode => GetComp<CompBandwidthCasketNode>();
 
-        // ─────────────── 容器是否接受某个 Thing ───────────────
-        /// <summary>
-        /// 判断该 Thing 能否进入容器,且容器必须为空。
-        /// </summary>
+        // ─────────────── 存档 ───────────────
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_References.Look(ref selectedPawn, "selectedPawn");
+        }
+
+        // ─────────────── 容器过滤 ───────────────
         public override bool Accepts(Thing thing)
         {
             if (innerContainer.Count > 0) return false;
@@ -115,27 +91,172 @@ namespace BandwidthCasket
             return true;
         }
 
-        // ─────────────── 放入流程 ───────────────
+        // ─────────────── 可选性判断 ───────────────
+        /// <summary>pawn 是否可以被送入带宽仓（包含容器可接受、通电、派系检查）。</summary>
+        public bool CanLoad(Pawn p)
+        {
+            if (!Spawned || Faction != Faction.OfPlayer) return false;
+            if (p == null || !p.Spawned) return false;
+            if (p.Map != Map) return false;
+            if (p.InMentalState) return false;
+            if (p.IsQuestLodger()) return false;
+            if (!Accepts(p)) return false;
+
+            CompPowerTrader power = GetComp<CompPowerTrader>();
+            if (power != null && !power.PowerOn) return false;
+
+            // 玩家派系成员 或 囚犯
+            if (p.Faction != Faction.OfPlayer && !p.IsPrisonerOfColony) return false;
+
+            return true;
+        }
+
+        /// <summary>该 pawn 能否自己走进带宽仓（false = 需要搬运）。</summary>
+        public static bool CanWalkInto(Pawn pawn)
+        {
+            if (pawn == null) return false;
+            if (pawn.Downed) return false;
+            if (pawn.IsPrisonerOfColony) return false;
+            if (!pawn.health.capacities.CapableOf(PawnCapacityDefOf.Moving)) return false;
+            return true;
+        }
+
+        // ─────────────── 选择 ───────────────
+        /// <summary>
+        /// 预定某个 pawn 送入带宽仓。
+        /// - 能自己走的：立即派 Enter job
+        /// - 需要搬运的：只设置 selectedPawn，让 WorkGiver 或右键来派 CarryTo job
+        /// </summary>
+        public bool SelectPawn(Pawn target)
+        {
+            if (!Spawned || Faction != Faction.OfPlayer || !CanLoad(target))
+                return false;
+
+            // 清掉地图上其他 casket 对同一 pawn 的预定，避免重复
+            foreach (var other in Map.listerBuildings
+                .AllBuildingsColonistOfClass<Building_BandwidthCasket>())
+            {
+                if (other != this && other.selectedPawn == target)
+                    other.selectedPawn = null;
+            }
+
+            selectedPawn = target;
+
+            if (CanWalkInto(target))
+            {
+                target.jobs.TryTakeOrderedJob(
+                    JobMaker.MakeJob(BandwidthCasket_JobDefOf.BandwidthCasket_Enter, this),
+                    JobTag.Misc);
+            }
+            // 需要搬运的：等待 WorkGiver_CarryToBandwidthCasket 自动派 job
+
+            return true;
+        }
+
+        // ─────────────── 取消 ───────────────
+        public void CancelLoad()
+        {
+            Pawn target = selectedPawn;
+            selectedPawn = null;
+            if (target == null) return;
+
+            // 目标是能自己走的，可能正在跑 Enter job
+            if (target.CurJob != null
+                && target.CurJob.def == BandwidthCasket_JobDefOf.BandwidthCasket_Enter
+                && target.CurJob.targetA.Thing == this)
+            {
+                target.jobs.EndCurrentJob(JobCondition.InterruptForced);
+            }
+
+            // 找搬运者的 CarryTo job
+            if (Map != null)
+            {
+                foreach (Pawn p in Map.mapPawns.AllPawnsSpawned)
+                {
+                    if (p.CurJob == null) continue;
+                    if (p.CurJob.def != BandwidthCasket_JobDefOf.BandwidthCasket_CarryTo) continue;
+                    if (p.CurJob.targetA.Thing != target) continue;
+                    if (p.CurJob.targetB.Thing != this) continue;
+
+                    p.jobs.EndCurrentJob(JobCondition.InterruptForced);
+
+                    if (p.carryTracker != null && p.carryTracker.CarriedThing == target)
+                        p.carryTracker.TryDropCarriedThing(p.Position, ThingPlaceMode.Near, out _);
+                    break;
+                }
+            }
+        }
+
+        // ─────────────── 搬运可行性 ───────────────
+        /// <summary>搬运者能否把 SelectedPawn 搬进来。</summary>
+        public bool CanCarryTo(Pawn carrier, out string reason)
+        {
+            reason = "RSC_BandwidthCasket_Unavailable".Translate();
+
+            if (!Spawned || Faction != Faction.OfPlayer) return false;
+            if (selectedPawn == null || !CanLoad(selectedPawn)) return false;
+            if (carrier == null || carrier == selectedPawn) return false;
+            if (!carrier.Spawned || carrier.Map != Map) return false;
+            if (carrier.Downed || carrier.InMentalState) return false;
+            if (!carrier.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation)) return false;
+            if (!carrier.health.capacities.CapableOf(PawnCapacityDefOf.Moving)) return false;
+            if (this.IsForbidden(carrier) || selectedPawn.IsForbidden(carrier)) return false;
+            if (Map.designationManager.DesignationOn(this, DesignationDefOf.Deconstruct) != null)
+                return false;
+
+            reason = "RSC_BandwidthCasket_Blocked".Translate();
+            if (!carrier.CanReserveAndReach(this, PathEndMode.InteractionCell, Danger.Deadly))
+                return false;
+            if (!carrier.CanReserveAndReach(selectedPawn, PathEndMode.OnCell, Danger.Deadly))
+                return false;
+
+            reason = null;
+            return true;
+        }
+
+        /// <summary>生成搬运 job。</summary>
+        public Job MakeLoadJob()
+        {
+            Job job = JobMaker.MakeJob(
+                BandwidthCasket_JobDefOf.BandwidthCasket_CarryTo,
+                selectedPawn, this);
+            job.count = 1;
+            return job;
+        }
+
+        // ─────────────── 放入 ───────────────
         public override bool TryAcceptThing(Thing thing, bool allowSpecialEffects = true)
         {
-            // 交给基类执行实际放入（含 DeSpawn、innerContainer.TryAdd 等）
             if (!base.TryAcceptThing(thing, allowSpecialEffects))
                 return false;
 
-            // 入场音效
+            selectedPawn = null;
+
             if (allowSpecialEffects)
                 SoundDefOf.CryptosleepCasket_Accept.PlayOneShot(new TargetInfo(Position, Map));
 
-            // 通知带宽节点：占位状态变了
             BandNode?.OnCasketOccupancyChanged();
             return true;
         }
 
-        // ─────────────── 弹出流程 ───────────────
+        // ─────────────── Tick ───────────────
+        protected override void Tick()
+        {
+            base.Tick();
+
+            // 只清理"确实已经不能再用"的目标。
+            // 关键：不要检查 Map —— 被搬运途中 Takee 会短暂 despawn，Map 会变成 null / 不一致，
+            // 检查它会误杀正常搬运中的 selectedPawn。
+            if (selectedPawn != null && !HasPawn)
+            {
+                if (selectedPawn.Dead || selectedPawn.Destroyed)
+                    selectedPawn = null;
+            }
+        }
+
+        // ─────────────── 弹出 ───────────────
         public override void EjectContents()
         {
-            // 1) 在 base.EjectContents() 之前遍历 innerContainer，因为基类会把容器清空。
-            //    给每个 pawn：恢复出生所需组件、加音效，加低温休眠症（与低温舱一致）。
             foreach (Thing t in innerContainer)
             {
                 if (t is Pawn p)
@@ -147,32 +268,24 @@ namespace BandwidthCasket
                 }
             }
 
-            // 2) 弹出音效。Destroyed 时 Map 可能已失效，所以要判断一下防止 NPE。
             if (!Destroyed)
             {
                 SoundDefOf.CryptosleepCasket_Eject.PlayOneShot(
                     SoundInfo.InMap(new TargetInfo(Position, Map)));
             }
 
-            // 3) 清协调状态（此刻 HasPawn 还是 true，不能依赖 OnCasketOccupancyChanged 的判断）
             BandNode?.ClearTuning();
-
-            // 4) 交给基类真正弹出内容物
             base.EjectContents();
         }
 
-        // ─────────────── 拆除时也要清协调 ───────────────
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
+            selectedPawn = null;
             BandNode?.ClearTuning();
             base.Destroy(mode);
         }
 
-        // ─────────────── 仓内 pawn 的绘制 ───────────────
-        /// <summary>
-        /// 按渲染阶段绘制容器内的 Pawn。
-        /// 必须用 DynamicDrawPhaseAt 而不是 DrawAt，否则头发、衣服、眼睛等分层无法正确画出。
-        /// </summary>
+        // ─────────────── 绘制 ───────────────
         public override void DynamicDrawPhaseAt(DrawPhase phase, Vector3 drawLoc, bool flip = false)
         {
             base.DynamicDrawPhaseAt(phase, drawLoc, flip);
@@ -182,73 +295,84 @@ namespace BandwidthCasket
             {
                 pawn.Drawer.renderer.DynamicDrawPhaseAt(
                     phase,
-                    drawLoc + PawnDrawOffset,   // 加上朝向相关的偏移
+                    drawLoc + PawnDrawOffset,
                     null,
-                    neverAimWeapon: true);       // 不显示武器瞄准动画
+                    neverAimWeapon: true);
             }
         }
 
-        // ─────────────── 命令条 Gizmos ───────────────
+        // ─────────────── Gizmos ───────────────
         public override IEnumerable<Gizmo> GetGizmos()
         {
-            // 先让基类输出它自己的 Gizmos（弹出按钮等）
             foreach (Gizmo g in base.GetGizmos())
                 yield return g;
 
-            // 已经有 pawn 在里面就不显示"选择小人"按钮
             if (HasPawn) yield break;
 
-            Command_Action cmd = new Command_Action
-            {
-                defaultLabel = "InsertPerson".Translate() + "...",
-                defaultDesc = "RSC_BandwidthCasket_InsertPersonDesc".Translate(),
-                icon = InsertPawnTex,
-                action = ShowSelectPawnMenu
-            };
-
-            // 没通电时置灰
             CompPowerTrader power = GetComp<CompPowerTrader>();
-            if (power != null && !power.PowerOn)
-                cmd.Disable("NoPower".Translate().CapitalizeFirst());
+            bool hasPower = power == null || power.PowerOn;
 
-            yield return cmd;
+            if (selectedPawn != null)
+            {
+                // 装载中：显示"取消装载"
+                yield return new Command_Action
+                {
+                    defaultLabel = "CommandCancelLoad".Translate(),
+                    defaultDesc = "CommandCancelLoadDesc".Translate(),
+                    icon = CancelTex,
+                    activateSound = SoundDefOf.Designate_Cancel,
+                    action = CancelLoad
+                };
+            }
+            else
+            {
+                Command_Action cmd = new Command_Action
+                {
+                    defaultLabel = "InsertPerson".Translate() + "...",
+                    defaultDesc = "RSC_BandwidthCasket_InsertPersonDesc".Translate(),
+                    icon = InsertPawnTex,
+                    action = ChooseOccupant
+                };
+                if (!hasPower)
+                    cmd.Disable("NoPower".Translate().CapitalizeFirst());
+                yield return cmd;
+            }
         }
 
-        /// <summary>弹出浮动菜单，列出所有可以进入的小人。</summary>
-        private void ShowSelectPawnMenu()
+        /// <summary>弹菜单：列出所有可送入带宽仓的 pawn。</summary>
+        private void ChooseOccupant()
         {
-            List<FloatMenuOption> options = new List<FloatMenuOption>();
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (Pawn p in Map.mapPawns.AllPawnsSpawned)
+            foreach (Pawn target in Map.mapPawns.AllPawnsSpawned
+                .Where(CanLoad)
+                .OrderBy(p => p.LabelShort))
             {
-                if (!Accepts(p)) continue;                                          // 不符合条件
-                if (p.Downed) continue;                                             // 倒地不能自己进去
-                if (!p.CanReach(this, PathEndMode.InteractionCell, Danger.Deadly))   // 不可达
-                    continue;
+                Pawn local = target;
 
-                Pawn pawn = p;  // 闭包捕获
-                options.Add(new FloatMenuOption(
-                    pawn.LabelShortCap,
-                    () =>
-                    {
-                        // 派发"进入带宽仓"任务
-                        pawn.jobs.TryTakeOrderedJob(
-                            JobMaker.MakeJob(BandwidthCasket_JobDefOf.BandwidthCasket_Enter, this),
-                            JobTag.Misc);
-                    },
-                    MenuOptionPriority.Default,
-                    null,
-                    pawn));   // 第 5 参 revalidateClickTarget，让菜单在 pawn 消失时自动刷新
+                // 用 12 参版 FloatMenuOption，第 3 参传 pawn 显示头像
+                list.Add(new FloatMenuOption(
+                    local.LabelShortCap,                    // label（不带后缀）
+                    () => SelectPawn(local),                // action
+                    local,                                  // iconThing ← 自动画头像
+                    Color.white,                            // iconColor
+                    MenuOptionPriority.Default,             // priority
+                    null,                                   // mouseoverGuiAction
+                    null,                                   // revalidateClickTarget
+                    0f,                                     // extraPartWidth
+                    null,                                   // extraPartOnGUI
+                    null,                                   // revalidateWorldClickTarget
+                    true,                                   // playSelectionSound
+                    0));                                    // orderInCategory
             }
 
-            // 没有任何可进入的小人时，给一个占位项
-            if (!options.Any())
-                options.Add(new FloatMenuOption("NoExtractablePawns".Translate(), null));
+            if (list.Count == 0)
+                list.Add(new FloatMenuOption("NoExtractablePawns".Translate(), null));
 
-            Find.WindowStack.Add(new FloatMenu(options));
+            Find.WindowStack.Add(new FloatMenu(list));
         }
 
-        // ─────────────── 右键浮动菜单 ───────────────
+        // ─────────────── 右键菜单 ───────────────
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn selPawn)
         {
             foreach (FloatMenuOption opt in base.GetFloatMenuOptions(selPawn))
@@ -256,27 +380,50 @@ namespace BandwidthCasket
 
             if (HasPawn) yield break;
 
-            // 断电检查
-            CompPowerTrader power = GetComp<CompPowerTrader>();
-            if (power != null && !power.PowerOn)
+            if (selectedPawn != null && selectedPawn != selPawn)
             {
                 yield return new FloatMenuOption(
-                    "CannotEnterBuilding".Translate(this) + ": " + "NoPower".Translate().CapitalizeFirst(),
+                    "CannotEnterBuilding".Translate(this) + ": "
+                        + "RSC_BandwidthCasket_AlreadySelected".Translate(),
                     null);
                 yield break;
             }
 
-            if (!Accepts(selPawn))
+            if (!CanLoad(selPawn))
+            {
+                CompPowerTrader power = GetComp<CompPowerTrader>();
+                if (power != null && !power.PowerOn)
+                {
+                    yield return new FloatMenuOption(
+                        "CannotEnterBuilding".Translate(this) + ": "
+                            + "NoPower".Translate().CapitalizeFirst(),
+                        null);
+                }
+                else
+                {
+                    yield return new FloatMenuOption(
+                        "CannotEnterBuilding".Translate(this) + ": "
+                            + "RSC_BandwidthCasket_NotAllowed".Translate(),
+                        null);
+                }
+                yield break;
+            }
+
+            // 只有能自己走的才允许右键直接进入
+            if (!CanWalkInto(selPawn))
             {
                 yield return new FloatMenuOption(
-                    "CannotEnterBuilding".Translate(this) + ": " + "NotAllowed".Translate(),
+                    "CannotEnterBuilding".Translate(this) + ": "
+                        + "RSC_BandwidthCasket_NeedsCarrier".Translate(),
                     null);
                 yield break;
             }
+
             if (!selPawn.CanReach(this, PathEndMode.InteractionCell, Danger.Deadly))
             {
                 yield return new FloatMenuOption(
-                    "CannotEnterBuilding".Translate(this) + ": " + "NoPath".Translate().CapitalizeFirst(),
+                    "CannotEnterBuilding".Translate(this) + ": "
+                        + "NoPath".Translate().CapitalizeFirst(),
                     null);
                 yield break;
             }
@@ -284,11 +431,21 @@ namespace BandwidthCasket
             yield return FloatMenuUtility.DecoratePrioritizedTask(
                 new FloatMenuOption("EnterBuilding".Translate(this), () =>
                 {
-                    selPawn.jobs.TryTakeOrderedJob(
-                        JobMaker.MakeJob(BandwidthCasket_JobDefOf.BandwidthCasket_Enter, this),
-                        JobTag.Misc);
+                    SelectPawn(selPawn);
                 }),
                 selPawn, this);
+        }
+
+        // ─────────────── 检查面板 ───────────────
+        public override string GetInspectString()
+        {
+            string s = base.GetInspectString();
+            if (selectedPawn != null && !HasPawn)
+            {
+                if (!s.NullOrEmpty()) s += "\n";
+                s += "WaitingForPawn".Translate(selectedPawn.Named("PAWN")).Resolve();
+            }
+            return s;
         }
     }
 }

@@ -16,7 +16,7 @@
     </skillGains>
     <!--必须非空，只是为了让 DefDatabase 检查通过；不会真的随机生成（有 C# 会用、游戏里根本不存在的类别名） -->
     <spawnCategories>
-      <li>WetwareOnly</li>
+      <li>Offworld</li>
     </spawnCategories>
     <!--禁用各种类型-->
     <workDisables>
