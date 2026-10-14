@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <RemovePassion.label>缺乏热情</RemovePassion.label>
+  <RemovePassion.description>这种基因的携带者不会对事物发展出热情</RemovePassion.description>
+  <RemovePassion.customEffectDescriptions.0>移除热情</RemovePassion.customEffectDescriptions.0>
+
+</LanguageData>

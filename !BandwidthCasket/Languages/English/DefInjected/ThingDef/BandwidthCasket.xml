@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <BandwidthCasket.label>Bandwidth Casket</BandwidthCasket.label>
+  <BandwidthCasket.description>A bandwidth casket is a bandwidth node that consumes living components. When powered, it provides +7 bandwidth to a mechanitor.</BandwidthCasket.description>
+
+</LanguageData>

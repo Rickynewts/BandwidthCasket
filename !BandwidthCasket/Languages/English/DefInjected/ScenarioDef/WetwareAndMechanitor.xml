@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <WetwareAndMechanitor.label>Wetware Mechanitor</WetwareAndMechanitor.label>
+  <WetwareAndMechanitor.description>You long ago understood that true power comes from the union of "wetware" and "hardware". You fled to this rimworld with three modified companions and a small squad of mechanoid servants.</WetwareAndMechanitor.description>
+  <WetwareAndMechanitor.scenario.summary>A mechanitor, three wetware xenohumans, and a small squad of servant mechanoids.</WetwareAndMechanitor.scenario.summary>
+
+  <!-- The following two entries depend on the order of parts; if you change the parts order later, adjust them accordingly -->
+  <WetwareAndMechanitor.scenario.parts.0.text>You long ago understood that true power comes from the union of "wetware" and "hardware". You fled to this rimworld with three modified companions and a small squad of mechanoid servants.</WetwareAndMechanitor.scenario.parts.0.text>
+  <WetwareAndMechanitor.scenario.parts.1.customSummary>1 Baseliner mechanitor and 3 Wetware.</WetwareAndMechanitor.scenario.parts.1.customSummary>
+
+</LanguageData>

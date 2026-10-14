@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <WetwareAndMechanitor.label>湿件机械师</WetwareAndMechanitor.label>
+  <WetwareAndMechanitor.description>你早就明白，真正的力量来自"湿件"与"硬件"的结合。你带着三名被改造过的同伴，以及一小队机械仆从，逃到了这枚边缘世界。</WetwareAndMechanitor.description>
+  <WetwareAndMechanitor.scenario.summary>一名机械师、三名湿件种，以及一小队仆从机械。</WetwareAndMechanitor.scenario.summary>
+
+  <!-- 下面两条依赖 parts 的顺序，如果你以后改动 parts 顺序需要同步调整 -->
+  <WetwareAndMechanitor.scenario.parts.0.text>你早就明白，真正的力量来自"湿件"与"硬件"的结合。你带着三名被改造过的同伴，以及一小队机械仆从，逃到了这枚边缘世界。</WetwareAndMechanitor.scenario.parts.0.text>
+  <WetwareAndMechanitor.scenario.parts.1.customSummary>1 名智人种机械师与 3 名湿件种。</WetwareAndMechanitor.scenario.parts.1.customSummary>
+
+</LanguageData>

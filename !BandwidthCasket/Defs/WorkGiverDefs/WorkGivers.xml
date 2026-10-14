@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <WorkGiverDef>
+    <defName>CarryToBandwidthCasket</defName>
+    <label>搬运至带宽仓</label>
+    <giverClass>BandwidthCasket.WorkGiver_CarryToBandwidthCasket</giverClass>
+    <workType>Hauling</workType>
+    <verb>搬运</verb>
+    <gerund>搬运</gerund>
+    <priorityInType>90</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <canBeDoneByMechs>true</canBeDoneByMechs>
+  </WorkGiverDef>
+
+</Defs>

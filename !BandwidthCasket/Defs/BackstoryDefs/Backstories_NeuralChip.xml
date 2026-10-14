@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <BackstoryDef>
+    <slot>Adulthood</slot>
+    <title>带宽仓芯片</title>
+    <defName>NeuralChip</defName>
+    <titleShort>芯片</titleShort>
+    <!--文本内容-->
+    <baseDesc>[PAWN_nameDef] 在成年后成为了带宽仓的芯片，度过漫长的余生</baseDesc>
+    <!--技能-->
+    <skillGains>
+      <Melee>-4</Melee>
+      <Mining>-4</Mining>
+      <Intellectual>3</Intellectual>
+      <Social>-5</Social>
+    </skillGains>
+    <!--必须非空，只是为了让 DefDatabase 检查通过；不会真的随机生成（有 C# 会用、游戏里根本不存在的类别名） -->
+    <spawnCategories>
+      <li>Offworld</li>
+    </spawnCategories>
+    <!--禁用各种类型-->
+    <workDisables>
+      <li>None</li>
+    </workDisables>
+  </BackstoryDef>
+</Defs>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- 本 Mod 自定义 Key -->
+  <RSC_BandwidthCasket_Unavailable>带宽仓不可用</RSC_BandwidthCasket_Unavailable>
+  <RSC_BandwidthCasket_Blocked>路径被阻挡</RSC_BandwidthCasket_Blocked>
+  <RSC_BandwidthCasket_InsertPersonDesc>将一个人置入带宽仓。</RSC_BandwidthCasket_InsertPersonDesc>
+  <RSC_BandwidthCasket_AlreadySelected>已被预留</RSC_BandwidthCasket_AlreadySelected>
+  <RSC_BandwidthCasket_NotAllowed>该人员无法送入带宽仓</RSC_BandwidthCasket_NotAllowed>
+  <RSC_BandwidthCasket_NeedsCarrier>该人员无法自行进入</RSC_BandwidthCasket_NeedsCarrier>
+  <CommandCancelLoad>取消装载</CommandCancelLoad>
+  <CommandCancelLoadDesc>取消将人员装入。</CommandCancelLoadDesc>
+  <InsertPerson>置入人员</InsertPerson>
+  <NoPower>无电力</NoPower>
+  <NoExtractablePawns>没有可置入入的人员</NoExtractablePawns>
+  <CannotEnterBuilding>无法进入{0}</CannotEnterBuilding>
+  <NoPath>无法到达</NoPath>
+  <EnterBuilding>进入{0}</EnterBuilding>
+  <WaitingForPawn>正在等待 {PAWN}</WaitingForPawn>
+
+</LanguageData>
